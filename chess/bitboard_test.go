@@ -10,7 +10,7 @@ import (
 func TestBitBoard(t *testing.T) {
 	board := BitBoard(0)
 	should.So(t, board, should.Equal, 0)
-	for square := 0; square < 64; square++ {
+	for _, square := range allSquares {
 		t.Run(fmt.Sprint(square), func(t *testing.T) {
 			should.So(t, board.IsOccupied(square), should.BeFalse)
 			board.Occupy(square)
