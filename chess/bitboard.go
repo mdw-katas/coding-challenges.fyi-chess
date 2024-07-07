@@ -2,6 +2,13 @@ package chess
 
 type BitBoard uint64
 
+func NewBitBoard(squares ...Square) *BitBoard {
+	result := new(BitBoard)
+	for _, square := range squares {
+		result.Occupy(square)
+	}
+	return result
+}
 func (this *BitBoard) mask(bit Square) BitBoard {
 	return BitBoard(1 << bit)
 }

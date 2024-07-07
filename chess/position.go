@@ -51,6 +51,34 @@ func ParseFEN(fen string) (result *Position, err error) {
 			}
 		}
 	}
+	switch fields[1] {
+	case "w":
+		result.WhiteToMove = true
+	case "b":
+		result.WhiteToMove = false
+	default:
+		return nil, fmt.Errorf("%w: invalid value in player-to-move section '%s'", errInvalidFEN, fields[1])
+	}
+	castling := fields[2]
+	if len(castling) > 0 && castling[0] == 'K' {
+		result.Castling.Occupy(whiteKingsideCastleTarget)
+		castling = castling[1:]
+	}
+	if len(castling) > 0 && castling[0] == 'Q' {
+		result.Castling.Occupy(whiteQueensideCastleTarget)
+		castling = castling[1:]
+	}
+	if len(castling) > 0 && castling[0] == 'k' {
+		result.Castling.Occupy(blackKingsideCastleTarget)
+		castling = castling[1:]
+	}
+	if len(castling) > 0 && castling[0] == 'q' {
+		result.Castling.Occupy(blackQueensideCastleTarget)
+		castling = castling[1:]
+	}
+	if len(castling) > 0 && castling != "-" {
+		return nil, fmt.Errorf("%w: invalid value in castling section '%s'", errInvalidFEN, fields[2])
+	}
 	return result, err
 }
 

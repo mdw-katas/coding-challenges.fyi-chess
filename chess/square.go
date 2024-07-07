@@ -11,6 +11,14 @@ var allSquares = []Square{
 	a1, b1, c1, d1, e1, f1, g1, h1,
 }
 
+const (
+	whiteKingsideCastleTarget  = g1
+	whiteQueensideCastleTarget = c1
+
+	blackKingsideCastleTarget  = g8
+	blackQueensideCastleTarget = c8
+)
+
 type Square uint8
 
 const (
