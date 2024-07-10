@@ -1,5 +1,10 @@
 package chess
 
+import (
+	"errors"
+	"fmt"
+)
+
 var allSquares = []Square{
 	a8, b8, c8, d8, e8, f8, g8, h8,
 	a7, b7, c7, d7, e7, f7, g7, h7,
@@ -18,6 +23,38 @@ const (
 	blackKingsideCastleTarget  = g8
 	blackQueensideCastleTarget = c8
 )
+
+const (
+	minFile = 'a'
+	minRank = '1'
+)
+
+func parseSquare(square string) (Square, error) {
+	if len(square) != 2 {
+		return 0, fmt.Errorf("%w: %s", errInvalidSquare, square)
+	}
+	switch square[0] {
+	case 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h':
+	default:
+		return 0, fmt.Errorf("%w: %s", errInvalidSquare, square)
+	}
+	switch square[1] {
+	case '1', '2', '3', '4', '5', '6', '7', '8':
+	default:
+		return 0, fmt.Errorf("%w: %s", errInvalidSquare, square)
+	}
+	file := square[0] - minFile
+	rank := square[1] - minRank
+	return Square(file + (8 * rank)), nil
+}
+
+func (this Square) String() string {
+	file := this % 8
+	rank := this / 8
+	return fmt.Sprintf("%c%c", minFile+file, minRank+rank)
+}
+
+var errInvalidSquare = errors.New("invalid square")
 
 type Square uint8
 

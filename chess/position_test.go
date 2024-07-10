@@ -53,6 +53,36 @@ func (this *PositionSuite) TestParseFEN_Castling_WhiteKingside() {
 		blackQueensideCastleTarget,
 	))
 }
+func (this *PositionSuite) TestParseFEN_InvalidEnPassantTarget() {
+	this.assertInvalidFEN("8/8/8/8/8/8/8/8 w - a 0 1")  // 'a' isn't complete
+	this.assertInvalidFEN("8/8/8/8/8/8/8/8 w - 1a 0 1") // '1a' is backwards
+	this.assertInvalidFEN("8/8/8/8/8/8/8/8 w - a0 0 1") // 'a9' isn't possible
+	this.assertInvalidFEN("8/8/8/8/8/8/8/8 w - a1 0 1") // 'a1' isn't possible
+	this.assertInvalidFEN("8/8/8/8/8/8/8/8 w - a2 0 1") // 'a2' isn't possible
+	this.assertInvalidFEN("8/8/8/8/8/8/8/8 w - a4 0 1") // 'a4' isn't possible
+	this.assertInvalidFEN("8/8/8/8/8/8/8/8 w - a5 0 1") // 'a5' isn't possible
+	this.assertInvalidFEN("8/8/8/8/8/8/8/8 w - a7 0 1") // 'a7' isn't possible
+	this.assertInvalidFEN("8/8/8/8/8/8/8/8 w - a8 0 1") // 'a8' isn't possible
+	this.assertInvalidFEN("8/8/8/8/8/8/8/8 w - a9 0 1") // 'a9' isn't possible
+}
+func (this *PositionSuite) TestParseFEN_ValidEnPassantTarget() {
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - a3 0 1").EnPassant, should.Equal, *NewBitBoard(a3))
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - a6 0 1").EnPassant, should.Equal, *NewBitBoard(a6))
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - b3 0 1").EnPassant, should.Equal, *NewBitBoard(b3))
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - b6 0 1").EnPassant, should.Equal, *NewBitBoard(b6))
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - c3 0 1").EnPassant, should.Equal, *NewBitBoard(c3))
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - c6 0 1").EnPassant, should.Equal, *NewBitBoard(c6))
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - d3 0 1").EnPassant, should.Equal, *NewBitBoard(d3))
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - d6 0 1").EnPassant, should.Equal, *NewBitBoard(d6))
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - e3 0 1").EnPassant, should.Equal, *NewBitBoard(e3))
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - e6 0 1").EnPassant, should.Equal, *NewBitBoard(e6))
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - f3 0 1").EnPassant, should.Equal, *NewBitBoard(f3))
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - f6 0 1").EnPassant, should.Equal, *NewBitBoard(f6))
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - g3 0 1").EnPassant, should.Equal, *NewBitBoard(g3))
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - g6 0 1").EnPassant, should.Equal, *NewBitBoard(g6))
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - h3 0 1").EnPassant, should.Equal, *NewBitBoard(h3))
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - h6 0 1").EnPassant, should.Equal, *NewBitBoard(h6))
+}
 func (this *PositionSuite) mustParse(rawFEN string) *Position {
 	position, err := ParseFEN(rawFEN)
 	this.So(err, should.BeNil)

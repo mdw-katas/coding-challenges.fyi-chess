@@ -51,7 +51,7 @@ func ParseFEN(fen string) (result *Position, err error) {
 			}
 		}
 	}
-	switch fields[1] {
+	switch playerToMove := fields[1]; playerToMove {
 	case "w":
 		result.WhiteToMove = true
 	case "b":
@@ -78,6 +78,15 @@ func ParseFEN(fen string) (result *Position, err error) {
 	}
 	if len(castling) > 0 && castling != "-" {
 		return nil, fmt.Errorf("%w: invalid value in castling section '%s'", errInvalidFEN, fields[2])
+	}
+	if enPassant := fields[3]; enPassant != "-" {
+		parseEnPassant, _ := parseSquare(enPassant)
+		switch parseEnPassant {
+		case a3, b3, c3, d3, e3, f3, g3, h3, a6, b6, c6, d6, e6, f6, g6, h6:
+		default:
+			return nil, fmt.Errorf("%w: en passant target '%s'", errInvalidFEN, enPassant)
+		}
+		result.EnPassant.Occupy(parseEnPassant)
 	}
 	return result, err
 }
