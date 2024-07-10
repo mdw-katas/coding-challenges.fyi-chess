@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+
+	"github.com/mdwhatcott/must/must"
 )
 
 type Position struct {
@@ -18,11 +20,7 @@ type Position struct {
 }
 
 func StartingPosition() *Position {
-	result, err := ParseFEN(startingFEN)
-	if err != nil {
-		panic(err) // TODO: remove when finished with ParseFEN (this should never happen)
-	}
-	return result
+	return must.Value(ParseFEN(startingFEN))
 }
 
 func ParseFEN(fen string) (result *Position, err error) {
