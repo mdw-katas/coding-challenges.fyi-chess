@@ -83,6 +83,26 @@ func (this *PositionSuite) TestParseFEN_ValidEnPassantTarget() {
 	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - h3 0 1").EnPassant, should.Equal, *NewBitBoard(h3))
 	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - h6 0 1").EnPassant, should.Equal, *NewBitBoard(h6))
 }
+func (this *PositionSuite) TestParseFEN_InvalidHalfMoveClock() {
+	this.assertInvalidFEN("8/8/8/8/8/8/8/8 b - - -1 1") // can't be negative
+	this.assertInvalidFEN("8/8/8/8/8/8/8/8 b - - 01 1") // can't be zero-prefixed
+	this.assertInvalidFEN("8/8/8/8/8/8/8/8 b - - a 1")  // must be a number
+}
+func (this *PositionSuite) TestParseFEN_ValidHalfMoveClock() {
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 b - - 0 1").HalfMoveClock, should.Equal, 0)
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 b - - 1 1").HalfMoveClock, should.Equal, 1)
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 b - - 50 1").HalfMoveClock, should.Equal, 50)
+}
+func (this *PositionSuite) TestParseFEN_InvalidFullMoveCount() {
+	this.assertInvalidFEN("8/8/8/8/8/8/8/8 b - - 0 0")  // can't be zero
+	this.assertInvalidFEN("8/8/8/8/8/8/8/8 b - - 0 -1") // can't be negative
+	this.assertInvalidFEN("8/8/8/8/8/8/8/8 b - - 0 01") // can't be zero-prefixed
+	this.assertInvalidFEN("8/8/8/8/8/8/8/8 b - - 0 a")  // must be a number
+}
+func (this *PositionSuite) TestParseFEN_ValidFullMoveCount() {
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 b - - 0 1").FullMoveCount, should.Equal, 1)
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 b - - 0 50").FullMoveCount, should.Equal, 50)
+}
 func (this *PositionSuite) mustParse(rawFEN string) *Position {
 	position, err := ParseFEN(rawFEN)
 	this.So(err, should.BeNil)

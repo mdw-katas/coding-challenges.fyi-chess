@@ -3,6 +3,7 @@ package chess
 import (
 	"errors"
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -88,6 +89,30 @@ func ParseFEN(fen string) (result *Position, err error) {
 		}
 		result.EnPassant.Occupy(parseEnPassant)
 	}
+	halfMove, err := strconv.Atoi(fields[4])
+	if len(fields[4]) > 1 && fields[4][0] == '0' {
+		return nil, fmt.Errorf("%w: invalid value in half-move clock section '%s'", errInvalidFEN, fields[4])
+	}
+	if err != nil {
+		return nil, fmt.Errorf("%w: invalid value in half-move clock section '%s'", errInvalidFEN, fields[4])
+	}
+	if halfMove < 0 {
+		return nil, fmt.Errorf("%w: invalid value in half-move clock section '%s'", errInvalidFEN, fields[4])
+	}
+	result.HalfMoveClock = halfMove
+
+	fullMove, err := strconv.Atoi(fields[5])
+	if len(fields[5]) > 1 && fields[5][0] == '0' {
+		return nil, fmt.Errorf("%w: invalid value in full-move counter section '%s'", errInvalidFEN, fields[5])
+	}
+	if err != nil {
+		return nil, fmt.Errorf("%w: invalid value in full-move counter section '%s'", errInvalidFEN, fields[5])
+	}
+	if fullMove <= 0 {
+		return nil, fmt.Errorf("%w: invalid value in full-move counter section '%s'", errInvalidFEN, fields[5])
+	}
+	result.FullMoveCount = fullMove
+
 	return result, err
 }
 
