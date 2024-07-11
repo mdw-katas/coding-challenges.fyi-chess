@@ -3,8 +3,8 @@ package chess
 import "github.com/mdwhatcott/must/must"
 
 type Position struct {
-	White         [6]BitBoard
-	Black         [6]BitBoard
+	WhitePieces   [6]BitBoard
+	BlackPieces   [6]BitBoard
 	Castling      BitBoard
 	EnPassant     BitBoard
 	HalfMoveClock uint16

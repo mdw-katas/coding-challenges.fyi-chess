@@ -26,9 +26,9 @@ func ParseFEN(fen string) (result *Position, err error) {
 			case '1', '2', '3', '4', '5', '6', '7', '8':
 				offset += int(char - minRank)
 			case 'K', 'Q', 'R', 'B', 'N', 'P':
-				result.White[initial2type[char]].Occupy(square)
+				result.WhitePieces[initial2type[char]].Occupy(square)
 			case 'k', 'q', 'r', 'b', 'n', 'p':
-				result.Black[initial2type[char]].Occupy(square)
+				result.BlackPieces[initial2type[char]].Occupy(square)
 			default:
 				return nil, fmt.Errorf("%w: invalid character in piece placement section '%c'", errInvalidFEN, char)
 			}

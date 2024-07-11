@@ -7,9 +7,9 @@ func RenderPlainTextBoard(this *Position) string {
 	for s, square := range allSquares {
 		length := result.Len()
 		for _, pieceType := range allPieceTypes {
-			if this.White[pieceType].IsOccupied(square) {
+			if this.WhitePieces[pieceType].IsOccupied(square) {
 				result.WriteString(pieceType.WhiteFigurine())
-			} else if this.Black[pieceType].IsOccupied(square) {
+			} else if this.BlackPieces[pieceType].IsOccupied(square) {
 				result.WriteString(pieceType.BlackFigurine())
 			}
 		}
