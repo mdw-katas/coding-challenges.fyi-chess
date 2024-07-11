@@ -36,9 +36,9 @@ func ParseFEN(fen string) (result *Position, err error) {
 	}
 	switch playerToMove := fields[1]; playerToMove {
 	case "w":
-		result.WhiteToMove = true
+		result.ToMove = White
 	case "b":
-		result.WhiteToMove = false
+		result.ToMove = Black
 	default:
 		return nil, fmt.Errorf("%w: invalid value in player-to-move section '%s'", errInvalidFEN, fields[1])
 	}

@@ -31,8 +31,8 @@ func (this *FENSuite) TestParseFEN_InvalidPlayerToMove() {
 	this.assertInvalidFEN("8/8/8/8/8/8/8/8 ? KQkq - 0 1") // invalid player '?'
 }
 func (this *FENSuite) TestParseFEN_ValidPlayerToMove() {
-	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - - 0 1").WhiteToMove, should.BeTrue)
-	this.So(this.mustParse("8/8/8/8/8/8/8/8 b - - 0 1").WhiteToMove, should.BeFalse)
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 w - - 0 1").ToMove, should.Equal, White)
+	this.So(this.mustParse("8/8/8/8/8/8/8/8 b - - 0 1").ToMove, should.Equal, Black)
 }
 func (this *FENSuite) TestParseFEN_InvalidCastlingRights() {
 	this.assertInvalidFEN("8/8/8/8/8/8/8/8 w asdf - 0 1") // invalid castling 'asdf'

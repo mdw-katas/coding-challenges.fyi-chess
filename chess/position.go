@@ -1,8 +1,6 @@
 package chess
 
-import (
-	"github.com/mdwhatcott/must/must"
-)
+import "github.com/mdwhatcott/must/must"
 
 type Position struct {
 	White         [6]BitBoard
@@ -11,7 +9,7 @@ type Position struct {
 	EnPassant     BitBoard
 	HalfMoveClock uint16
 	FullMoveCount uint16
-	WhiteToMove   bool
+	ToMove        Color
 }
 
 func StartingPosition() *Position {

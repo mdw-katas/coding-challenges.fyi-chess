@@ -22,6 +22,12 @@ var initial2type = map[rune]Piece{
 
 var allPieceTypes = []Piece{King, Queen, Rook, Bishop, Knight, Pawn}
 
+func (this Piece) Initial(color Color) string {
+	if color == White {
+		return this.WhiteInitial()
+	}
+	return this.BlackInitial()
+}
 func (this Piece) WhiteInitial() string {
 	switch this {
 	case King:
@@ -57,6 +63,12 @@ func (this Piece) BlackInitial() string {
 	default:
 		return "¿"
 	}
+}
+func (this Piece) Figurine(color Color) string {
+	if color == White {
+		return this.WhiteFigurine()
+	}
+	return this.BlackFigurine()
 }
 func (this Piece) WhiteFigurine() string {
 	switch this {
