@@ -1,6 +1,6 @@
 module github.com/mdwhatcott/coding-challenges.fyi-chess
 
-go 1.22
+go 1.23
 
 require (
 	github.com/mdwhatcott/exec v1.2.0
