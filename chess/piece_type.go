@@ -11,7 +11,7 @@ const (
 	Pawn
 )
 
-var fen2type = map[rune]PieceType{
+var initial2type = map[rune]PieceType{
 	'K': King /****/, 'k': King,
 	'Q': Queen /***/, 'q': Queen,
 	'R': Rook /****/, 'r': Rook,

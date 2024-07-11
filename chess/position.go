@@ -30,21 +30,21 @@ func ParseFEN(fen string) (result *Position, err error) {
 		return nil, fmt.Errorf("%w: want 6 fields, had %d instead", errInvalidFEN, len(fields))
 	}
 	ranks := strings.Split(fields[0], "/")
-	if len(ranks) != 8 {
+	if len(ranks) != boardWidth {
 		return nil, fmt.Errorf("%w: want 8 ranks, had %d instead", errInvalidFEN, len(ranks))
 	}
 	for r, rank := range ranks {
-		r = 7 - r
+		r = boardWidth - 1 - r
 		offset := 0
 		for c, char := range rank {
-			square := Square((8 * r) + c + offset)
+			square := Square((boardWidth * r) + c + offset)
 			switch char {
 			case '1', '2', '3', '4', '5', '6', '7', '8':
 				offset += int(char - minRank)
 			case 'K', 'Q', 'R', 'B', 'N', 'P':
-				result.White[fen2type[char]].Occupy(square)
+				result.White[initial2type[char]].Occupy(square)
 			case 'k', 'q', 'r', 'b', 'n', 'p':
-				result.Black[fen2type[char]].Occupy(square)
+				result.Black[initial2type[char]].Occupy(square)
 			default:
 				return nil, fmt.Errorf("%w: invalid character in piece placement section '%c'", errInvalidFEN, char)
 			}
@@ -130,7 +130,7 @@ func (this *Position) String() string {
 		if result.Len() == length {
 			result.WriteString("-")
 		}
-		if (s+1)%8 == 0 {
+		if (s+1)%boardWidth == 0 {
 			result.WriteString("\n")
 		} else {
 			result.WriteString(" ")

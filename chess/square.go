@@ -29,6 +29,8 @@ const (
 	minRank = '1'
 )
 
+const boardWidth = 8
+
 func parseSquare(square string) (Square, error) {
 	if len(square) != 2 {
 		return 0, fmt.Errorf("%w: %s", errInvalidSquare, square)
@@ -45,12 +47,12 @@ func parseSquare(square string) (Square, error) {
 	}
 	file := square[0] - minFile
 	rank := square[1] - minRank
-	return Square(file + (8 * rank)), nil
+	return Square(file + (boardWidth * rank)), nil
 }
 
 func (this Square) String() string {
-	file := this % 8
-	rank := this / 8
+	file := this % boardWidth
+	rank := this / boardWidth
 	return fmt.Sprintf("%c%c", minFile+file, minRank+rank)
 }
 

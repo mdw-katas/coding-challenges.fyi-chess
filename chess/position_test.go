@@ -4,6 +4,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/mdwhatcott/must/must"
 	"github.com/mdwhatcott/testing/should"
 )
 
@@ -18,6 +19,8 @@ type PositionSuite struct {
 func (this *PositionSuite) TestString() {
 	this.So(new(Position).String(), should.Equal, Blank)
 	this.So(StartingPosition().String(), should.Equal, Starting)
+	this.So(must.Value(ParseFEN(RuyLopezFEN)).String(), should.Equal, RuyLopez)
+	this.So(must.Value(ParseFEN(MiddleGameFEN)).String(), should.Equal, MiddleGame)
 }
 func (this *PositionSuite) TestParseFEN_InvalidFieldCounts() {
 	this.assertInvalidFEN("1 2 3 4 5")     // too few fields  (5)
