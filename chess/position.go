@@ -10,13 +10,13 @@ import (
 )
 
 type Position struct {
-	WhiteToMove   bool
 	White         [6]BitBoard
 	Black         [6]BitBoard
 	Castling      BitBoard
 	EnPassant     BitBoard
-	HalfMoveClock int
-	FullMoveCount int
+	HalfMoveClock uint16
+	FullMoveCount uint16
+	WhiteToMove   bool
 }
 
 func StartingPosition() *Position {
@@ -87,7 +87,7 @@ func ParseFEN(fen string) (result *Position, err error) {
 		}
 		result.EnPassant.Occupy(parseEnPassant)
 	}
-	halfMove, err := strconv.Atoi(fields[4])
+	halfMove, err := strconv.ParseUint(fields[4], 10, 16)
 	if len(fields[4]) > 1 && fields[4][0] == '0' {
 		return nil, fmt.Errorf("%w: invalid value in half-move clock section '%s'", errInvalidFEN, fields[4])
 	}
@@ -97,9 +97,9 @@ func ParseFEN(fen string) (result *Position, err error) {
 	if halfMove < 0 {
 		return nil, fmt.Errorf("%w: invalid value in half-move clock section '%s'", errInvalidFEN, fields[4])
 	}
-	result.HalfMoveClock = halfMove
+	result.HalfMoveClock = uint16(halfMove)
 
-	fullMove, err := strconv.Atoi(fields[5])
+	fullMove, err := strconv.ParseUint(fields[5], 10, 16)
 	if len(fields[5]) > 1 && fields[5][0] == '0' {
 		return nil, fmt.Errorf("%w: invalid value in full-move counter section '%s'", errInvalidFEN, fields[5])
 	}
@@ -109,7 +109,7 @@ func ParseFEN(fen string) (result *Position, err error) {
 	if fullMove <= 0 {
 		return nil, fmt.Errorf("%w: invalid value in full-move counter section '%s'", errInvalidFEN, fields[5])
 	}
-	result.FullMoveCount = fullMove
+	result.FullMoveCount = uint16(fullMove)
 
 	return result, err
 }
