@@ -6,11 +6,11 @@ func RenderPlainTextBoard(this *Position) string {
 	var result strings.Builder
 	for s, square := range allSquares {
 		length := result.Len()
-		for _, pieceType := range allPieceTypes {
-			if this.WhitePieces[pieceType].IsOccupied(square) {
-				result.WriteString(pieceType.WhiteFigurine())
-			} else if this.BlackPieces[pieceType].IsOccupied(square) {
-				result.WriteString(pieceType.BlackFigurine())
+		for _, color := range []Color{White, Black} {
+			for _, pieceType := range allPieceTypes {
+				if this.Pieces[color.Int()][pieceType].IsOccupied(square) {
+					result.WriteString(pieceType.Figurine(color))
+				}
 			}
 		}
 		if result.Len() == length {
