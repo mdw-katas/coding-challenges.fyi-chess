@@ -18,3 +18,6 @@ func (this *BitBoard) IsOccupied(square Square) bool {
 func (this *BitBoard) Occupy(square Square) {
 	*this |= this.mask(square)
 }
+func (this *BitBoard) Vacate(square Square) {
+	*this &= ^this.mask(square)
+}
