@@ -1,9 +1,9 @@
 package chess
 
-type PieceType int
+type Piece int
 
 const (
-	King PieceType = iota
+	King Piece = iota
 	Queen
 	Rook
 	Bishop
@@ -11,7 +11,7 @@ const (
 	Pawn
 )
 
-var initial2type = map[rune]PieceType{
+var initial2type = map[rune]Piece{
 	'K': King /****/, 'k': King,
 	'Q': Queen /***/, 'q': Queen,
 	'R': Rook /****/, 'r': Rook,
@@ -20,9 +20,9 @@ var initial2type = map[rune]PieceType{
 	'P': Pawn /****/, 'p': Pawn,
 }
 
-var allPieceTypes = []PieceType{King, Queen, Rook, Bishop, Knight, Pawn}
+var allPieceTypes = []Piece{King, Queen, Rook, Bishop, Knight, Pawn}
 
-func (this PieceType) WhiteInitial() string {
+func (this Piece) WhiteInitial() string {
 	switch this {
 	case King:
 		return "K"
@@ -40,7 +40,7 @@ func (this PieceType) WhiteInitial() string {
 		return "?"
 	}
 }
-func (this PieceType) BlackInitial() string {
+func (this Piece) BlackInitial() string {
 	switch this {
 	case King:
 		return "k"
@@ -58,7 +58,7 @@ func (this PieceType) BlackInitial() string {
 		return "¿"
 	}
 }
-func (this PieceType) WhiteFigurine() string {
+func (this Piece) WhiteFigurine() string {
 	switch this {
 	case King:
 		return "♔"
@@ -76,7 +76,7 @@ func (this PieceType) WhiteFigurine() string {
 		return "?"
 	}
 }
-func (this PieceType) BlackFigurine() string {
+func (this Piece) BlackFigurine() string {
 	switch this {
 	case King:
 		return "♚"
