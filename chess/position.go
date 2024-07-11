@@ -40,7 +40,7 @@ func ParseFEN(fen string) (result *Position, err error) {
 			square := Square((8 * r) + c + offset)
 			switch char {
 			case '1', '2', '3', '4', '5', '6', '7', '8':
-				offset += int(char - '0')
+				offset += int(char - minRank)
 			case 'K', 'Q', 'R', 'B', 'N', 'P':
 				result.White[fen2type[char]].Occupy(square)
 			case 'k', 'q', 'r', 'b', 'n', 'p':
