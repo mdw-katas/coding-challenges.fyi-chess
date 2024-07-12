@@ -27,12 +27,11 @@ func (this *Position) Do(move Move) (that *Position) {
 	if move.Color == Black {
 		that.FullMoveCount++
 	}
-	for _, color := range []Color{White, Black} {
-		for _, piece := range allPieceTypes {
-			if move.Color == color && move.Piece == piece {
-				nColor := color.Int()
-				that.Pieces[nColor][piece].Vacate(move.Source)
-				that.Pieces[nColor][piece].Occupy(move.Target)
+	for color, pieces := range that.Pieces {
+		for piece := range pieces {
+			if color == move.Color.Int() && move.Piece == Piece(piece) {
+				that.Pieces[color][piece].Vacate(move.Source)
+				that.Pieces[color][piece].Occupy(move.Target)
 			}
 		}
 	}
