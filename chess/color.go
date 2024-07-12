@@ -3,8 +3,8 @@ package chess
 type Color bool
 
 const (
-	White = Color(true)
-	Black = Color(false)
+	White = Color(false)
+	Black = Color(true)
 )
 
 func (this Color) Int() (result int) {
