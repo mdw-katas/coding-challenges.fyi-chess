@@ -5,5 +5,6 @@ type Move struct {
 	Piece     Piece
 	Source    Square
 	Target    Square
+	Captured  Piece
 	Promotion Piece
 }
