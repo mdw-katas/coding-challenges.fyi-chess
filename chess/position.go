@@ -11,6 +11,10 @@ type Position struct {
 	ToMove        Color
 }
 
+func StartingPosition() *Position {
+	return must.Value(ParseFEN(startingFEN))
+}
+
 func (this *Position) Do(move Move) (that *Position) {
 	that = &Position{
 		Pieces:        this.Pieces,
@@ -33,8 +37,4 @@ func (this *Position) Do(move Move) (that *Position) {
 		}
 	}
 	return that
-}
-
-func StartingPosition() *Position {
-	return must.Value(ParseFEN(startingFEN))
 }
