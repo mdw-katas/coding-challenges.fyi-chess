@@ -19,6 +19,25 @@ var allSquaresRaw = strings.Join([]string{
 	"a1 b1 c1 d1 e1 f1 g1 h1",
 }, " ")
 
+func TestSquareRankFile(t *testing.T) {
+	should.So(t, a1.File(), should.Equal, 'a')
+	should.So(t, b2.File(), should.Equal, 'b')
+	should.So(t, c3.File(), should.Equal, 'c')
+	should.So(t, d4.File(), should.Equal, 'd')
+	should.So(t, e5.File(), should.Equal, 'e')
+	should.So(t, f6.File(), should.Equal, 'f')
+	should.So(t, g7.File(), should.Equal, 'g')
+	should.So(t, h8.File(), should.Equal, 'h')
+
+	should.So(t, a1.Rank(), should.Equal, 1)
+	should.So(t, b2.Rank(), should.Equal, 2)
+	should.So(t, c3.Rank(), should.Equal, 3)
+	should.So(t, d4.Rank(), should.Equal, 4)
+	should.So(t, e5.Rank(), should.Equal, 5)
+	should.So(t, f6.Rank(), should.Equal, 6)
+	should.So(t, g7.Rank(), should.Equal, 7)
+	should.So(t, h8.Rank(), should.Equal, 8)
+}
 func TestParseSquare(t *testing.T) {
 	mustParse := func(s string) Square {
 		square, err := parseSquare(s)

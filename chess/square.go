@@ -51,9 +51,13 @@ func parseSquare(square string) (Square, error) {
 }
 
 func (this Square) String() string {
-	file := this % boardWidth
-	rank := this / boardWidth
-	return fmt.Sprintf("%c%c", minFile+file, minRank+rank)
+	return fmt.Sprintf("%c%d", this.File(), this.Rank())
+}
+func (this Square) File() rune {
+	return minFile + rune(this%boardWidth)
+}
+func (this Square) Rank() int {
+	return int(this/boardWidth) + 1
 }
 
 var errInvalidSquare = errors.New("invalid square")
