@@ -21,3 +21,12 @@ func (this *BitBoard) Occupy(square Square) {
 func (this *BitBoard) Vacate(square Square) {
 	*this &= ^this.mask(square)
 }
+func (this *BitBoard) OccupiedSquares() func(func(Square) bool) {
+	return func(yield func(Square) bool) {
+		for _, square := range allSquares { // TODO: optimize to avoid checking every square...
+			if this.IsOccupied(square) {
+				yield(square)
+			}
+		}
+	}
+}
