@@ -16,8 +16,8 @@ type TUISuite struct {
 }
 
 func (this *TUISuite) TestRenderPlainTextBoard() {
-	this.So(RenderPlainTextBoard(new(Position)), should.Equal, Blank)
-	this.So(RenderPlainTextBoard(StartingPosition()), should.Equal, Starting)
-	this.So(RenderPlainTextBoard(must.Value(ParseFEN(RuyLopezFEN))), should.Equal, RuyLopez)
-	this.So(RenderPlainTextBoard(must.Value(ParseFEN(MiddleGameFEN))), should.Equal, MiddleGame)
+	this.So(PlainText(new(Position)), should.Equal, Blank)
+	this.So(PlainText(StartingPosition()), should.Equal, Starting)
+	this.So(PlainText(must.Value(ParseFEN(RuyLopezFEN))), should.Equal, RuyLopez)
+	this.So(PlainText(must.Value(ParseFEN(MiddleGameFEN))), should.Equal, MiddleGame)
 }

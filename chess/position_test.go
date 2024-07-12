@@ -29,7 +29,7 @@ func (this *PositionSuite) TestDoMoves() {
 	for _, move := range moves {
 		this.position = this.position.Do(move)
 	}
-	this.So(RenderPlainTextBoard(this.position), should.Equal, FoolsMate)
+	this.So(PlainText(this.position), should.Equal, FoolsMate)
 }
 
 var FoolsMate = lines(

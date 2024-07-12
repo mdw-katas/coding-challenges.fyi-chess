@@ -2,7 +2,7 @@ package chess
 
 import "strings"
 
-func RenderPlainTextBoard(this *Position) string {
+func PlainText(this *Position) string {
 	var result strings.Builder
 	for s, square := range allSquares {
 		length := result.Len()
