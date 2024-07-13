@@ -1,5 +1,7 @@
 package chess
 
+import "math/bits"
+
 type BitBoard uint64
 
 func NewBitBoard(squares ...Square) *BitBoard {
@@ -20,6 +22,11 @@ func (this *BitBoard) Occupy(square Square) {
 }
 func (this *BitBoard) Vacate(square Square) {
 	*this &= ^this.mask(square)
+}
+func (this *BitBoard) Flip() {
+	if *this > 0 {
+		*this = BitBoard(bits.Reverse64(uint64(*this)))
+	}
 }
 func (this *BitBoard) OccupiedSquares() func(func(Square) bool) {
 	return func(yield func(Square) bool) {

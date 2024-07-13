@@ -27,3 +27,13 @@ func TestBitBoard(t *testing.T) {
 		})
 	}
 }
+
+func TestBitBoardFlip(t *testing.T) {
+	forward := uint64(0xf0ff00fff000ffff)
+	backward := uint64(0xffff000fff00ff0f)
+	b := BitBoard(forward)
+	b.Flip()
+	should.So(t, b, should.Equal, backward)
+	b.Flip()
+	should.So(t, b, should.Equal, forward)
+}
