@@ -51,15 +51,15 @@ func GenerateMoves(position *Position) func(func(Move) bool) {
 				case Pawn:
 					if color == White {
 						if square.Rank() == 7 {
-							yield(newPromotion(newMove(color, Pawn, square, square+8), Queen))
-							yield(newPromotion(newMove(color, Pawn, square, square+8), Rook))
-							yield(newPromotion(newMove(color, Pawn, square, square+8), Bishop))
-							yield(newPromotion(newMove(color, Pawn, square, square+8), Knight))
+							yield(promote(move(color, Pawn, square, square+8), Queen))
+							yield(promote(move(color, Pawn, square, square+8), Rook))
+							yield(promote(move(color, Pawn, square, square+8), Bishop))
+							yield(promote(move(color, Pawn, square, square+8), Knight))
 						} else {
-							yield(newMove(color, Pawn, square, square+8))
+							yield(move(color, Pawn, square, square+8))
 						}
 						if square.Rank() == 2 {
-							yield(newMove(color, Pawn, square, square+16))
+							yield(move(color, Pawn, square, square+16))
 						}
 					}
 				}
@@ -68,10 +68,10 @@ func GenerateMoves(position *Position) func(func(Move) bool) {
 	}
 }
 
-func newMove(color Color, piece Piece, source, target Square) Move {
+func move(color Color, piece Piece, source, target Square) Move {
 	return Move{Color: color, Piece: piece, Source: source, Target: target}
 }
-func newPromotion(move Move, promotion Piece) Move {
+func promote(move Move, promotion Piece) Move {
 	move.Promotion = promotion
 	return move
 }
